@@ -79,6 +79,7 @@
     }
 
     fileinput.addEventListener("change", () => {
+        if (!fileinput.files[0]) return;
         status.classList.add("loading");
 
         const img = new Image();
@@ -115,6 +116,7 @@
                 document.body.removeChild(element);
 
                 status.classList.remove("loading");
+                fileinput.value = "";
             });
         };
         img.src = URL.createObjectURL(fileinput.files[0]);
