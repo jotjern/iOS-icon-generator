@@ -109,7 +109,7 @@
                 const element = document.createElement("a");
                 const url = URL.createObjectURL(content);
                 element.href = url;
-                element.download = "images.zip";
+                element.download = `Generated-iOS-icons-${new Date().toLocaleDateString("en-GB")}.zip`;
                 document.body.appendChild(element);
                 element.click();
                 document.body.removeChild(element);
