@@ -69,6 +69,15 @@
         loader.innerText = loader.innerText === "..." ? ".." : loader.innerText + ".";
     }, 200);
 
+    function dataURLtoBlob(dataurl) {
+        const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+        let bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
+    }
+
     fileinput.addEventListener("change", () => {
         status.classList.add("loading");
 
@@ -90,8 +99,7 @@
 
                     ctx.drawImage(img, 0, 0, size, size);
 
-                    const imgdata = ctx.getImageData(0, 0, size, size);
-                    const blob = new Blob([imgdata.data], {type: 'image/png'});
+                    const blob = dataURLtoBlob(canvas.toDataURL("image/png"));
 
                     zip.file(fname, blob);
                 }
